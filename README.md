@@ -11,45 +11,8 @@ La meta principal del análisis es responder a preguntas de negocio clave e iden
 -Entorno de Despliegue: Docker / Docker Compose con variables de entorno (.env)
 - - -
 ## Arquitectura y Flujo de Trabajo (Pipeline)
+<img width="514" height="783" alt="image" src="https://github.com/user-attachments/assets/ee5e1791-e1fa-4a32-ba16-7d9ba0a4c3e8" />
 
-```
-+------------------------------------+
-|  Dataset Raw: CSV                  |
-|  (student_performance_dataset.csv) |
-+------------------------------------+
-                  |
-                  v
-+------------------------------------+
-|  Procesamiento ETL (Python/Pandas)  |
-|  - Limpieza y Rename de columnas   |
-|  - Mapeo/Traducción de valores     |
-|  - Normalización en 3 Entidades    |
-+------------------------------------+
-                  |
-                  v
-+------------------------------------+
-|  Modelado y Carga (SQLAlchemy)     |
-|  - Definición DDL (PK/FK)          |
-|  - Dropped & Re-creation de tablas |
-|  - Carga relacional en PostgreSQL  |
-+------------------------------------+
-                  |
-                  v
-+------------------------------------+
-|  Base de Datos (Docker Container)  |
-|  - DB: info_db (PostgreSQL)        |
-|  - Tablas: estudiantes,            |
-|    actividad_de_estudiantes,       |
-|    metricas_estudiantes            |
-+------------------------------------+
-                  |
-                  v
-+------------------------------------+
-|  Capa de Analítica & Visualización  |
-|  - Conexión PostgreSQL en Power BI |
-|  - Dashboard de Métricas y EDA     |
-+------------------------------------+
-```
 - - -
 ## Modelo Entidad-Relación (Base de Datos)
 El script implementa un modelo normalizado en PostgreSQL dividiendo el dataset original en tres entidades clave conectadas mediante id_estudiante:
